@@ -1,0 +1,155 @@
+🔵 Example 1: Normal Traffic
+This example represents normal network traffic where there is no suspicious activity.
+
+{
+  "protocol_type": "tcp",
+  "service": "http",
+  "flag": "SF",
+  "src_bytes": 100,
+  "dst_bytes": 500,
+  "count": 5,
+  "serror_rate": 0.0,
+  "rerror_rate": 0.0,
+  "same_srv_rate": 1.0
+}
+
+🔴 Example 2: Attack - SYN Flood (DoS)
+This represents a Denial of Service (DoS) attack, where repeated connection requests are sent.
+
+{
+  "protocol_type": "tcp",
+  "service": "ftp",
+  "flag": "REJ",
+  "src_bytes": 0,
+  "dst_bytes": 0,
+  "count": 50,
+  "serror_rate": 1.0,
+  "rerror_rate": 0.5,
+  "same_srv_rate": 0.8
+}
+
+🔴 Example 3: Attack - Port Scanning
+This represents a port scanning attack, where a malicious actor probes for open ports.
+
+{
+  "protocol_type": "udp",
+  "service": "dns",
+  "flag": "S1",
+  "src_bytes": 0,
+  "dst_bytes": 100,
+  "count": 25,
+  "serror_rate": 0.2,
+  "rerror_rate": 0.3,
+  "same_srv_rate": 0.1
+}
+
+🔴 Example 4: Attack - Brute Force Login
+This represents a brute-force attack on an FTP server, where a hacker tries multiple login attempts.
+
+{
+  "protocol_type": "tcp",
+  "service": "ftp",
+  "flag": "SF",
+  "src_bytes": 40,
+  "dst_bytes": 2000,
+  "count": 100,
+  "serror_rate": 0.5,
+  "rerror_rate": 0.6,
+  "same_srv_rate": 0.3
+}
+
+----- Normal Traffic Examples -----
+
+--- Web Browsing (HTTP) ---
+
+{
+  "protocol_type": "tcp",
+  "service": "http",
+  "flag": "SF",
+  "src_bytes": 500,
+  "dst_bytes": 7000,
+  "count": 10,
+  "srv_count": 5,
+  "serror_rate": 0.0,
+  "same_srv_rate": 0.9,
+  "dst_host_srv_count": 60
+}
+
+✅ Explanation:
+
+Regular HTTP traffic
+
+Successful connection (SF)
+
+Moderate request count
+
+--- Secure SSH Login ---
+
+{
+  "protocol_type": "tcp",
+  "service": "ssh",
+  "flag": "SF",
+  "src_bytes": 3000,
+  "dst_bytes": 1500,
+  "count": 3,
+  "srv_count": 2,
+  "serror_rate": 0.0,
+  "same_srv_rate": 0.95,
+  "dst_host_srv_count": 10
+}
+✅ Explanation:
+
+SSH login with moderate data exchange
+
+No errors (serror_rate = 0.0)
+
+Low request count
+
+
+
+
+----- Anomaly Traffic Examples -----
+
+--- DDoS Attack (UDP Flood) ---
+
+{
+  "protocol_type": "udp",
+  "service": "dns",
+  "flag": "S0",
+  "src_bytes": 0,
+  "dst_bytes": 0,
+  "count": 1000,
+  "srv_count": 1000,
+  "serror_rate": 1.0,
+  "same_srv_rate": 1.0,
+  "dst_host_srv_count": 255
+}
+❌ Explanation:
+
+Massive request count → Possible attack
+
+High error rate (serror_rate = 1.0) → Connections failing
+
+DNS service → Could indicate DNS amplification attack
+
+--- Port Scanning ---
+
+{
+  "protocol_type": "tcp",
+  "service": "ftp",
+  "flag": "REJ",
+  "src_bytes": 20,
+  "dst_bytes": 0,
+  "count": 200,
+  "srv_count": 200,
+  "serror_rate": 0.9,
+  "same_srv_rate": 0.1,
+  "dst_host_srv_count": 5
+}
+❌ Explanation:
+
+Rejected packets (REJ) indicate scanning behavior
+
+High request count → Unusual for normal FTP traffic
+
+Low same_srv_rate → Multiple different services being targeted
