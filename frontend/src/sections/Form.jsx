@@ -49,8 +49,9 @@ export default function NIDSApp() {
     <div className="relative w-screen h-screen bg-black overflow-hidden flex justify-center items-center">
      <Rings position1="top-[-70px] left-[-100px]" position2="bottom-[-70px] right-[-100px]"/>
      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/5 to-transparent"/>
+     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/5 to-transparent"/>
       {/* Form Box - Frosted Glass Effect */}
-      <div className="relative p-10 w-[90rem] min-h-[90vh] overflow-y-auto rounded-xl shadow-xl bg-gray-900/50 border border-gray-700 backdrop-blur-xl">
+      <div className="relative p-10 z-10 w-[90rem] min-h-[90vh] overflow-y-auto rounded-xl shadow-xl bg-gray-900/50 border border-gray-700 backdrop-blur-xl">
         {/* Gradient Title */}
         <h1 className="text-4xl font-extrabold text-center bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text mb-6 uppercase tracking-[0.4em]">
           Analyse Network
