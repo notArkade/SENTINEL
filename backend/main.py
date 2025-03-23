@@ -53,15 +53,8 @@ joblib.dump(target_encoder, "target_encoder.pkl")
 
 print("Model and encoders saved...")
 
-from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
-
-# ----- Predict on validation data
-y_pred = rf_model.predict(X_val)
-
-# ----- Print classification report
-print(classification_report(y_val, y_pred))
 
 # ----- Plot confusion matrix
 cm = confusion_matrix(y_val, y_pred)
