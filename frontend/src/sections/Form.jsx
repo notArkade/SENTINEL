@@ -10,7 +10,6 @@ export default function NIDSApp() {
     src_bytes: 0,
     dst_bytes: 0,
     count: 100,
-    srv_count: 100,
     serror_rate: 1.0,
     same_srv_rate: 1.0,
     dst_host_srv_count: 255,
@@ -132,7 +131,7 @@ export default function NIDSApp() {
           {/* Submit Button - Neon Effect */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all hover:shadow-purple-500/50 cursor-pointer"
+            className="w-full mt-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all hover:shadow-purple-500/50 cursor-pointer"
             disabled={loading}
           >
             {loading ? "Checking..." : "Check Intrusion"}
