@@ -1,62 +1,3 @@
-🔵 Example 1: Normal Traffic
-This example represents normal network traffic where there is no suspicious activity.
-
-{
-  "protocol_type": "tcp",
-  "service": "http",
-  "flag": "SF",
-  "src_bytes": 100,
-  "dst_bytes": 500,
-  "count": 5,
-  "serror_rate": 0.0,
-  "rerror_rate": 0.0,
-  "same_srv_rate": 1.0
-}
-
-🔴 Example 2: Attack - SYN Flood (DoS)
-This represents a Denial of Service (DoS) attack, where repeated connection requests are sent.
-
-{
-  "protocol_type": "tcp",
-  "service": "ftp",
-  "flag": "REJ",
-  "src_bytes": 0,
-  "dst_bytes": 0,
-  "count": 50,
-  "serror_rate": 1.0,
-  "rerror_rate": 0.5,
-  "same_srv_rate": 0.8
-}
-
-🔴 Example 3: Attack - Port Scanning
-This represents a port scanning attack, where a malicious actor probes for open ports.
-
-{
-  "protocol_type": "udp",
-  "service": "dns",
-  "flag": "S1",
-  "src_bytes": 0,
-  "dst_bytes": 100,
-  "count": 25,
-  "serror_rate": 0.2,
-  "rerror_rate": 0.3,
-  "same_srv_rate": 0.1
-}
-
-🔴 Example 4: Attack - Brute Force Login
-This represents a brute-force attack on an FTP server, where a hacker tries multiple login attempts.
-
-{
-  "protocol_type": "tcp",
-  "service": "ftp",
-  "flag": "SF",
-  "src_bytes": 40,
-  "dst_bytes": 2000,
-  "count": 100,
-  "serror_rate": 0.5,
-  "rerror_rate": 0.6,
-  "same_srv_rate": 0.3
-}
 
 ----- Normal Traffic Examples -----
 
@@ -69,19 +10,10 @@ This represents a brute-force attack on an FTP server, where a hacker tries mult
   "src_bytes": 500,
   "dst_bytes": 7000,
   "count": 10,
-  "srv_count": 5,
   "serror_rate": 0.0,
   "same_srv_rate": 0.9,
   "dst_host_srv_count": 60
 }
-
-✅ Explanation:
-
-Regular HTTP traffic
-
-Successful connection (SF)
-
-Moderate request count
 
 --- Secure SSH Login ---
 
@@ -92,19 +24,52 @@ Moderate request count
   "src_bytes": 3000,
   "dst_bytes": 1500,
   "count": 3,
-  "srv_count": 2,
   "serror_rate": 0.0,
   "same_srv_rate": 0.95,
   "dst_host_srv_count": 10
 }
-✅ Explanation:
 
-SSH login with moderate data exchange
+--- Normal FTP File Transfer ---
 
-No errors (serror_rate = 0.0)
+{
+    "protocol_type": "tcp",
+    "service": "ftp",
+    "flag": "SF",
+    "src_bytes": 1500,
+    "dst_bytes": 5000,
+    "count": 3,
+    "serror_rate": 0.0,
+    "same_srv_rate": 1.0,
+    "dst_host_srv_count": 15
+}
 
-Low request count
+--- Normal SSH Remote Login ---
 
+{
+    "protocol_type": "tcp",
+    "service": "ssh",
+    "flag": "SF",
+    "src_bytes": 500,
+    "dst_bytes": 1000,
+    "count": 1,
+    "serror_rate": 0.0,
+    "same_srv_rate": 1.0,
+    "dst_host_srv_count": 5
+}
+
+--- Normal DNS Query ---
+
+{
+    "protocol_type": "udp",
+    "service": "dns",
+    "flag": "SF",
+    "src_bytes": 50,
+    "dst_bytes": 100,
+    "count": 1,
+    "serror_rate": 0.0,
+    "same_srv_rate": 1.0,
+    "dst_host_srv_count": 30
+}
 
 
 
@@ -124,7 +89,6 @@ Low request count
   "same_srv_rate": 1.0,
   "dst_host_srv_count": 255
 }
-❌ Explanation:
 
 Massive request count → Possible attack
 
@@ -132,24 +96,45 @@ High error rate (serror_rate = 1.0) → Connections failing
 
 DNS service → Could indicate DNS amplification attack
 
---- Port Scanning ---
+
+--- Network Scanning Attack / DDoS ---
 
 {
-  "protocol_type": "tcp",
-  "service": "ftp",
-  "flag": "REJ",
-  "src_bytes": 20,
-  "dst_bytes": 0,
-  "count": 200,
-  "srv_count": 200,
-  "serror_rate": 0.9,
-  "same_srv_rate": 0.1,
-  "dst_host_srv_count": 5
+    "protocol_type": "udp",
+    "service": "DNS",
+    "flag": "S0",
+    "src_bytes": 0,
+    "dst_bytes": 0,
+    "count": 100,
+    "serror_rate": 1.0,
+    "same_srv_rate": 0.1,
+    "dst_host_srv_count": 255
 }
-❌ Explanation:
 
-Rejected packets (REJ) indicate scanning behavior
+--- Port Scanning Attack ---
 
-High request count → Unusual for normal FTP traffic
+{
+    "protocol_type": "tcp",
+    "service": "DNS",
+    "flag": "REJ",
+    "src_bytes": 0,
+    "dst_bytes": 0,
+    "count": 50,
+    "serror_rate": 0.8,
+    "same_srv_rate": 0.1,
+    "dst_host_srv_count": 255
+}
 
-Low same_srv_rate → Multiple different services being targeted
+--- DNS Amplification Attack ---
+
+{
+    "protocol_type": "udp",
+    "service": "DNS",
+    "flag": "S0",
+    "src_bytes": 0,
+    "dst_bytes": 0,
+    "count": 100,
+    "serror_rate": 1.0,
+    "same_srv_rate": 1.0,
+    "dst_host_srv_count": 255
+}
