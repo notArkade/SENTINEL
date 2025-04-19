@@ -53,25 +53,25 @@ joblib.dump(target_encoder, "target_encoder.pkl")
 
 print("Model and encoders saved...")
 
-import seaborn as sns
-import matplotlib.pyplot as plt
+# import seaborn as sns
+# import matplotlib.pyplot as plt
 
-# ----- Plot confusion matrix
-cm = confusion_matrix(y_val, y_pred)
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
-plt.xlabel("Predicted")
-plt.ylabel("Actual")
-plt.title("Confusion Matrix")
-plt.show()
+# # ----- Plot confusion matrix
+# cm = confusion_matrix(y_val, y_pred)
+# sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+# plt.xlabel("Predicted")
+# plt.ylabel("Actual")
+# plt.title("Confusion Matrix")
+# plt.show()
 
-# ----- Feature Importance Plot
-feature_importances = rf_model.feature_importances_
-feature_names = X.columns
+# # ----- Feature Importance Plot
+# feature_importances = rf_model.feature_importances_
+# feature_names = X.columns
 
-# ----- Plot Feature Importance
-plt.figure(figsize=(10, 5))
-sns.barplot(x=feature_importances, y=feature_names, palette="viridis")
-plt.xlabel("Importance Score")
-plt.ylabel("Features")
-plt.title("Feature Importance in Random Forest Model")
-plt.show()
+# # ----- Plot Feature Importance
+# plt.figure(figsize=(10, 5))
+# sns.barplot(x=feature_importances, y=feature_names, palette="viridis")
+# plt.xlabel("Importance Score")
+# plt.ylabel("Features")
+# plt.title("Feature Importance in Random Forest Model")
+# plt.show()
